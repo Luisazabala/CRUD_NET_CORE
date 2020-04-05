@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CRUD_NET_CORE.Clases.EmpleadoDetalle>
+
+@{
+    ViewData["Title"] = "Pagina Principal";
+} 
+    <div class="container" style="text-align:center; color:#a72d33;" >
+        <h1>EMPLEADOS</h1>
+    </div>
+    <body style="background-image:url(img/descarga2.png); width:100%; height:100vh; background-size:cover; background-position:center;   padding:0;
+    margin:0;">
+
+
+        <p>
+
+        </p>
+        <form asp-action="Index" method="post">
+            <div class="form-actions no-color" style="text-align: center;">
+                <p>
+                    Filtro: <input type="text" name="busqueda" value="" />
+                    <input type="submit" value="Buscar" class="btn btn-primary" />
+                    <a asp-action="Index">Todos los registros</a>
+                </p>
+            </div>
+        </form>
+
+        <table class="table table-hover" style="border:dashed; border-color:#a72d33; text-align:center">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Documento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cargo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Telefono)
+                    </th>
+                    <th>
+                        <a asp-action="CrearEditar" class="btn btn-outline-success"><i class="far fa-plus-square"></i> Crear Empleado</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody style="border:dashed; border-color:#a72d33">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Documento)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cargo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Telefono)
+                        </td>
+                        <td>
+                            <a asp-action="CrearEditar" asp-route-id="@item.IdEmpleado"><i class="fa fa-marker fa-lg"></i>Editar</a> |
+                            <a asp-action="Eliminar" asp-route-id="@item.IdEmpleado" class="text-danger m1-1" onclick="return confirm ('Deseas eliminar este registro?')"><i class="fa fa-trash-alt fa-lg"></i>Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </body>

@@ -1,0 +1,42 @@
+﻿@model CRUD_NET_CORE.Models.Entities.CargoEmpleado
+
+@{
+    ViewData["Title"] = "Crear Cargo";
+}
+<div class="container"style="text-align:center; color:#a72d33;">
+<h1>CREAR - MODIFICAR CARGO</h1>
+</div>
+
+<body style="background-color:#D5DBDB; width:100%; height:100vh; background-size:cover; background-position:center; padding:0;
+    margin:0;">
+    <hr>
+    <div class="row" style="margin-left:auto ;margin-right:auto; text-align:center; align-self:center; width:480px">
+        <div class="container" style="border:dashed; border-color:#a72d33; text-align:center">
+            <form asp-action="CrearCargo">
+                <div asp-validation-summary="ModelOnly" class="text-danger" style="text-align:center"></div>
+                <input type="hidden" asp-for="IdCargo" />
+                <div class="container" style="text-align:center">
+                    
+                    <label asp-for="Cargo" class="control-label"></label>
+                    <input asp-for="Cargo" class="form-control" />
+                    <span asp-validation-for="Cargo" class="text-danger"></span>
+                </div>
+                <br>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <button type="submit" value="Aceptar" class="btn btn-primary btn-block">
+                            <i class="fas fa-check"></i> Aceptar
+                        </button>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <a asp-action="Index" class="btn btn-secondary btn-block"><i class="fas fa-backspace"></i> Volver</a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    </body>
+
+

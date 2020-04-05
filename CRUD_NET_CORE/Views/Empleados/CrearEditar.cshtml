@@ -1,0 +1,60 @@
+﻿@model CRUD_NET_CORE.Models.Entities.Empleado
+
+@{
+    ViewData["Title"] = "Crear Empleado";
+}
+<div class="container" style="text-align:center; color:#a72d33;">
+    <h1>CREAR - MODIFICAR EMPLEADO</h1>
+</div>
+
+<body style="background-color:#D5DBDB ;background-size:cover; background-position:center; padding:0;">
+
+    <div class="row" style="margin-left:auto ;margin-right:auto;text-align:center; align-self:center;  width:480px">
+        <div class="container"style="text-align: center ">
+            <form class="container" asp-action="CrearEditar" style="border:dashed; border-color:#a72d33; text-align:center">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IdEmpleado" />
+                <div class="form-group">
+                    <label asp-for="Nombre" class="control-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="Documento" class="control-label"></label>
+                        <input asp-for="Documento" class="form-control" />
+                        <span asp-validation-for="Documento" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label asp-for="Cargo" class="control-label"></label>
+                        <select asp-for="Cargo" asp-items="@(new SelectList(ViewBag.Cargos,"IdCargo", "Cargo"))" class="form-control">
+                        </select>
+                        <span asp-validation-for="Cargo" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Telefono" class="control-label"></label>
+                    <input asp-for="Telefono" class="form-control" />
+                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group col-md-6">
+                        <button type="submit" value="Aceptar" class="btn btn-primary btn-block">
+                            <i class="fas fa-check"></i> Aceptar
+                        </button>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <a asp-action="Index" class="btn btn-secondary btn-block"><i class="fas fa-backspace"></i> Volver</a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
