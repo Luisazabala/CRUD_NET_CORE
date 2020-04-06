@@ -10,7 +10,7 @@
 <body style="background-color:#D5DBDB ;background-size:cover; background-position:center; padding:0;">
 
     <div class="row" style="margin-left:auto ;margin-right:auto;text-align:center; align-self:center;  width:480px">
-        <div class="container"style="text-align: center ">
+        <div class="container" style="text-align: center ">
             <form class="container" asp-action="CrearEditar" style="border:dashed; border-color:#a72d33; text-align:center">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="IdEmpleado" />
@@ -57,4 +57,7 @@
         </div>
     </div>
 </body>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}}
+
 

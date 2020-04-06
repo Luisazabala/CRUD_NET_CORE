@@ -47,48 +47,75 @@ namespace CRUD_CORE_SENA.Models.Business
         public async Task<IEnumerable<EmpleadoDetalle>> obtenerEmpleadosTodos()
         {
             //return await _context.Empleados.ToListAsync();
-            IEnumerable<Empleado> listaEmpleados;
-
-
-            listaEmpleados =
-            (from empleado in _context.Empleados
-             select empleado
-             ).ToList();
-
-
-            IEnumerable<EmpleadoDetalle> listaEmpleadoDetalle =
-               (from empleado in listaEmpleados
-                select new EmpleadoDetalle
-                {
-                    IdEmpleado = empleado.IdEmpleado,
-                    Nombre = empleado.Nombre,
-                    Cargo = traerCargo(empleado.Cargo),
-                    Telefono = empleado.Telefono,
-                    Documento = empleado.Documento
-                });
-            return listaEmpleadoDetalle;
-
-        }
-
-        public string traerCargo(int idCargo)
-        {
-            CargoEmpleado cargo =
-            (from miCargo in _context.CargoEmpleados
-             where (miCargo.IdCargo == idCargo)
-             select miCargo).FirstOrDefault();
-
-            if (cargo == null)
+            await using (_context)
             {
-                return "Por Definir";
-            }
-            else
-            {
-                return cargo.Cargo;
+
+                IEnumerable<EmpleadoDetalle> listaEmpleadoDetalles =
+                (from empleado in _context.Empleados
+                 join cargo in _context.CargoEmpleados
+                 on empleado.Cargo equals
+                 cargo.IdCargo into gj
+                 from subcargo in gj.DefaultIfEmpty()
+
+
+                 select new EmpleadoDetalle
+                 {
+                     IdEmpleado = empleado.IdEmpleado,
+                     Nombre = empleado.Nombre,
+                     Cargo = subcargo.Cargo ?? "Por Definir",
+                     Telefono = empleado.Telefono,
+                     Documento = empleado.Documento
+
+                 }).ToList();
+
+                return listaEmpleadoDetalles;
             }
         }
+            //public async Task<IEnumerable<EmpleadoDetalle>> obtenerEmpleadosTodos()
+            //{
+            ////return await _context.Empleados.ToListAsync();
+            //IEnumerable<Empleado> listaEmpleados;
 
 
-        public async Task guardarEmpleado(Empleado empleado)
+            //listaEmpleados =
+            //(from empleado in _context.Empleados
+            // select empleado
+            // ).ToList();
+
+
+            //IEnumerable<EmpleadoDetalle> listaEmpleadoDetalle =
+            //   (from empleado in listaEmpleados
+            //    select new EmpleadoDetalle
+            //    {
+            //        IdEmpleado = empleado.IdEmpleado,
+            //        Nombre = empleado.Nombre,
+            //        Cargo = traerCargo(empleado.Cargo),
+            //        Telefono = empleado.Telefono,
+            //        Documento = empleado.Documento
+            //    });
+            //return listaEmpleadoDetalle;
+
+            //}
+
+            //public string traerCargo(int idCargo)
+            //{
+            //    CargoEmpleado cargo =
+            //    (from miCargo in _context.CargoEmpleados
+            //     where (miCargo.IdCargo == idCargo)
+            //     select miCargo).FirstOrDefault();
+
+            //    if (cargo == null)
+            //    {
+            //        return "Por Definir";
+            //    }
+            //    else
+            //    {
+            //        return cargo.Cargo;
+            //    }
+            //}
+
+
+            public async Task guardarEmpleado(Empleado empleado)
         {
             if (empleado.IdEmpleado == 0)
                 _context.Add(empleado);
